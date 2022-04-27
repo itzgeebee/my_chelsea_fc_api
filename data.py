@@ -30,7 +30,7 @@ class Players:
         players = self.driver.find_elements(by=By.CSS_SELECTOR, value=".jquery-tablesorter th")
         for player in players:
             self.players.append(player.text)
-            if player.text == "Christian "
+
         print(self.players)
 
 

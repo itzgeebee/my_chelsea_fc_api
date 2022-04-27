@@ -55,13 +55,12 @@ John Harris,Scotland,CB,1945–1956,364,14
 Tommy Walker,Scotland,FW,1946–1948,105,24
 Sydney Bathgate,Scotland,DF,1946–1953,147,0
 Ken Armstrong,England,HB,1946–1957,402,30
-,New Zealand,,,,
 Bill Robertson,Scotland,GK,1946–1960,215,0
 Bobby Campbell,Scotland,W,1947–1954,213,40
 Roy Bentley,England,ST,1948–1956,367,150
 Stan Willemse,England,LB,1949–1956,221,2
 Eric Parsons,England,W,1950–1956,177,42
-Les Stubbs,England,FW,123,35,
+Les Stubbs,England,FW,123,35,0
 John McNichol,Scotland,FW,1952–1958,202,66
 Derek Saunders,England,HB,1953–1959,223,9
 Ron Tindall,England,ST,1953–1961,174,69
@@ -76,7 +75,7 @@ Barry Bridges,England,FW,1958–1966,205,93
 Bobby Tambling,England,FW,1959–1970,370,202
 Peter Bonetti,England,GK,1959–1979,729,0
 Allan Harris,England,LB,1960–1964,102,1
-,,,1966–1967,,
+Allan Harris,England,LB,1966–1967,102,1
 Terry Venables,England,MF,1960–1966,237,31
 Bert Murray,England,FW,1961–1966,183,44
 Ron Harris,England,DF,1961–1980,795,14
@@ -86,14 +85,10 @@ Marvin Hinton,England,CB,1963–1976,344,4
 George Graham,Scotland,FW,1964–1966,102,46
 John Boyle,Scotland,MF,1964–1973,266,12
 Peter Osgood,England,ST,1964–1974,380,150
-,,,1978–1979,,
 John Hollins,England,MF,1963–1975,592,64
-,,,1983–1984,,
 Charlie Cooke,Scotland,W,1966–1972,373,30
-,,,1974–1978,,
 Tommy Baldwin,England,MF,1966–1974,239,91
 Alan Hudson,England,MF,1968–1974,189,14
-,,,1983–1984,,
 David Webb,England,CB/RB,1968–1974,299,34
 Ian Hutchinson,England,ST,1968–1976,144,58
 John Dempsey,Republic of Ireland,CB,1969–1978,207,7
@@ -107,7 +102,6 @@ Bill Garner,England,ST,1972–1978,119,36
 Gary Locke,England,RB,1971–1983,317,4
 Kenny Swain,England,MF/ST,1973–1978,132,29
 Steve Wicks,England,CB,1974–1979,164,9
-,,,1986–1988,,
 Ray Wilkins,England,MF,1972–1979,198,33
 David Hay,Scotland,MF,1974–1980,120,3
 Tommy Langley,England,ST,1974–1980,152,43
@@ -123,7 +117,6 @@ Colin Lee,England,ST,1980–1987,223,41
 Paul Canoville,England,W,1981–1986,103,15
 David Speedie,Scotland,ST,1982–1987,205,64
 Nigel Spackman,England,MF,1983–1987,267,14
-,,,1992–1996,,
 Eddie Niedzwiecki,Wales,GK,1983–1988,175,0
 Pat Nevin,Scotland,W,1983–1988,242,45
 Joe McLaughlin,Scotland,CB,1983–1989,268,7
@@ -133,7 +126,6 @@ Gordon Durie,Scotland,ST,1986–1991,153,63
 Tony Dorigo,England,LB,1987–1991,180,12
 Kevin Wilson,Northern Ireland,FW,1987–1992,191,55
 Graeme Le Saux,England,LB,1987–1993,312,16
-,,,1997–2003,,
 Steve Clarke,Scotland,RB,1987–1998,421,10
 David Lee,England,CB,1988–1998,194,13
 Kevin Hitchcock,England,GK,1988–2001,135,0
@@ -179,10 +171,8 @@ Joe Cole,England,MF,2003–2010,282,39
 Arjen Robben,Netherlands,W,2004–2007,106,19
 Ricardo Carvalho,Portugal,CB,2004–2010,210,11
 Didier Drogba,Ivory Coast,ST,2004–2012,381,164
-,,,2014–2015,,
 Paulo Ferreira,Portugal,RB,2004–2013,214,2
 Petr Čech,Czech Republic,GK,2004–2015,494,0
-,,,2020–2021,,
 Shaun Wright-Phillips,England,W,2005–2008,125,10
 Michael Essien,Ghana,MF,2005–2014,256,25
 Michael Ballack,Germany,MF,2006–2010,166,25
@@ -195,13 +185,11 @@ José Bosingwa,Portugal,RB,2008–2012,125,3
 Nicolas Anelka,France,FW,2008–2012,184,59
 Branislav Ivanović,Serbia,DF,2008–2017,377,34
 Nemanja Matić,Serbia,MF,2009–2011,154,7
-,,,2014–2017,,
 Fernando Torres,Spain,ST,2010–2014,172,45
 Ramires,Brazil,MF,2010–2016,246,33
 Juan Mata,Spain,MF,2011–2014,135,33
 Thibaut Courtois,Belgium,GK,2011–2018,154,0
 David Luiz,Brazil,CB,2011–2014,248,18
-,,,2016–2019,,
 Oscar,Brazil,MF,2012–2016,203,38
 Gary Cahill,England,CB,2012–2019,290,25
 Eden Hazard,Belgium,W,2012–2019,352,110
