@@ -1,16 +1,16 @@
-from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
+from flask import Flask, render_template, request, jsonify
 from flask_bootstrap import Bootstrap
-from datetime import date
-from sqlalchemy.exc import IntegrityError
-from werkzeug.exceptions import abort
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import relationship
-from raw_data import RawData
+from flask_httpauth import HTTPBasicAuth
+from werkzeug.security import generate_password_hash, check_password_hash
+from tinydb import TinyDB
 
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 app.config['SECRET_KEY'] = "secretkey"
 Bootstrap(app)
+
+
 
 # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///testing.db"
@@ -18,9 +18,18 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+small_db = TinyDB("small_db.json")
+auth = HTTPBasicAuth()
+get_usr_data = small_db.all()
+user_data = get_usr_data[0]
+
+@auth.verify_password
+def verify_password(username, password):
+    if username in user_data and \
+            check_password_hash(user_data.get(username), password):
+        return username
+
 ##CONFIGURE TABLES
-
-
 class Players(db.Model):
     __tablename__ = "players"
     id = db.Column(db.Integer, primary_key=True)
@@ -270,14 +279,10 @@ def search():
             "Not found": "Sorry, page not found, check that the url is correct"
         }}), 404
 
-
-
-
     result_list = []
     for i in query_result:
         rez = i.to_dict()
         result_list.append(rez)
-    print(result_list)
 
     if not result_list:
         return jsonify({"error": {
@@ -288,11 +293,191 @@ def search():
         return query_result_json
 
 
-@app.route("/add", methods=["POST"])
-def add():
-    new_player = request.args.get("new-player")
-    print(new_player)
-    return jsonify({"message": {"new player added"}})
+@app.route("/add-new-player", methods=["POST"])
+def add_new_player():
+    new_player = Players(
+        player_name=request.form.get("player-name"),
+        nationality=request.form.get("nationality"),
+        position=request.form.get("position"),
+        career_years=request.form.get("career_years"),
+        appearance=request.form.get("appearance"),
+        goals=request.form.get("goals"),
+        wikipedia_article=request.form.get("wikipedia-link")
+    )
+    db.session.add(new_player)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-poty", methods=["POST"])
+def add_new_poty():
+    new_poty = POTY(
+        player_name=request.form.get("player-name"),
+        win_year=request.form.get("win-year")
+    )
+    db.session.add(new_poty)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-captain", methods=["POST"])
+def add_new_captain():
+    new_goty = Captains(
+        player_name=request.form.get("player-name"),
+        years=request.form.get("years")
+    )
+    db.session.add(new_goty)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-goty", methods=["POST"])
+def add_new_goty():
+    new_goty = GOTY(
+        player_name=request.form.get("player-name"),
+        win_year=request.form.get("win-year"),
+        against=request.form.get("opponent"),
+        scored=request.form.get("scoreline"),
+        result=request.form.get("game-result"),
+        stadium=request.form.get("stadium"),
+        competition=request.form.get("competition")
+    )
+    db.session.add(new_goty)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-eplpoty", methods=["POST"])
+def add_new_eplpoty():
+    new_eplpoty = FWA_Player(
+        player_name=request.form.get("player-name"),
+        year=request.form.get("win-year")
+    )
+    db.session.add(new_eplpoty)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-title", methods=["POST"])
+def add_new_title():
+    new_title = Titles(
+        honour=request.form.get("player-name"),
+        years=request.form.get("win-year"),
+    )
+    db.session.add(new_title)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-gbwinner", methods=["POST"])
+def add_new_gb():
+    new_gb = GoldenBoot(
+        player_name=request.form.get("player-name"),
+        win_year=request.form.get("win-year"),
+    )
+    db.session.add(new_gb)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/add-new-ggwinner", methods=["POST"])
+def add_new_gg():
+    new_gg = GoldenGlove(
+        player_name=request.form.get("player-name"),
+        win_year=request.form.get("win-year"),
+    )
+    db.session.add(new_gg)
+    db.session.commit()
+
+    return jsonify({"response:": {"success": "new player added"}})
+
+
+@app.route("/update-player-profile/<int:player_id>", methods=["GET", "PUT"])
+def update_player(player_id):
+    player_to_update = Players.query.get(player_id)
+    if player_to_update:
+        total_goals = request.args.get("goals")
+        total_appearances = request.args.get("appearances")
+        career = request.args.get("career")
+        if total_goals:
+            player_to_update.goals = total_goals
+        elif total_appearances:
+            player_to_update.appearance = total_appearances
+        elif career:
+            player_to_update.career_years = career
+        else:
+            return jsonify({"error": {
+                "Not a valid url": "Kindly check the url and try again"
+            }}), 404
+    else:
+        return jsonify({"error": {
+            "Not found": "Sorry, a player with that id was not found in the database"
+        }}), 404
+    return jsonify({"success": "Successfully updated the price"})
+
+
+@app.route("/delete", methods=["GET", "DELETE"])
+@auth.login_required()
+def delete_entry():
+    del_ = None
+
+    player_to_delete = request.args.get("player_id")
+    poty_to_delete = request.args.get("poty_id")
+    goty_to_delete = request.args.get("goty_id")
+    captain_to_delete = request.args.get("captain_id")
+    eplplayer_to_delete = request.args.get("eplplayer_id")
+    title_to_delete = request.args.get("title_id")
+    gb_to_delete = request.args.get("gb_id")
+    gg_to_delete = request.args.get("gg_id")
+
+    if player_to_delete:
+        del_= Players.query.get(player_to_delete)
+
+    elif poty_to_delete:
+        del_= Players.query.get(poty_to_delete)
+
+    elif goty_to_delete:
+        del_= Players.query.get(goty_to_delete)
+
+    elif player_to_delete:
+        del_= Players.query.get(player_to_delete)
+
+    elif captain_to_delete:
+        del_= Players.query.get(captain_to_delete)
+
+    elif eplplayer_to_delete:
+        del_= Players.query.get(eplplayer_to_delete)
+
+    elif title_to_delete:
+        del_= Players.query.get(title_to_delete)
+
+    elif gb_to_delete:
+        del_= Players.query.get(gb_to_delete)
+
+    elif gg_to_delete:
+        del_= Players.query.get(gg_to_delete)
+
+    else:
+        return jsonify({"error": {
+            "Not found": "Sorry, nothing with that id was not found in the database"
+        }}), 404
+
+    if del_:
+        db.session.delete(del_)
+        db.session.commit()
+        return jsonify({"success":"deleted successfully"})
+    else:
+        return jsonify({"error": {
+            "Not found": "Sorry, nothing with that id was not found in the database"
+        }}), 404
+
 
 if __name__ == "__main__":
     app.run(debug=True)
