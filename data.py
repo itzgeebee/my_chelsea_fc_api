@@ -1,37 +1,37 @@
-import pandas as pd
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.common.by import By
-import time
-
-
-chrome_driver_path = "C:/Users/gb/Documents/chromedriver.exe"
-driver_service = Service(executable_path=chrome_driver_path)
-
-
-class Players:
-
-    def __init__(self):
-
-        self.driver = webdriver.Chrome(service=driver_service)
-        self.driver.maximize_window()
-        self.site = "https://en.wikipedia.org/wiki/List_of_Chelsea_F.C._players"
-        self.driver.get(self.site)
-
-        self.players = []
-        self.nationalities = []
-        self.positions = []
-        self.career_years = []
-        self.appearances = []
-        self.goals = []
-
-    def get_details(self):
-        time.sleep(2)
-        players = self.driver.find_elements(by=By.CSS_SELECTOR, value=".jquery-tablesorter th")
-        for player in players:
-            self.players.append(player.text)
-
-        print(self.players)
+# import pandas as pd
+# from selenium import webdriver
+# from selenium.webdriver.chrome.service import Service
+# from selenium.webdriver.common.by import By
+# import time
+#
+#
+# chrome_driver_path = "C:/Users/gb/Documents/chromedriver.exe"
+# driver_service = Service(executable_path=chrome_driver_path)
+#
+#
+# class Players:
+#
+#     def __init__(self):
+#
+#         self.driver = webdriver.Chrome(service=driver_service)
+#         self.driver.maximize_window()
+#         self.site = "https://en.wikipedia.org/wiki/List_of_Chelsea_F.C._players"
+#         self.driver.get(self.site)
+#
+#         self.players = []
+#         self.nationalities = []
+#         self.positions = []
+#         self.career_years = []
+#         self.appearances = []
+#         self.goals = []
+#
+#     def get_details(self):
+#         time.sleep(2)
+#         players = self.driver.find_elements(by=By.CSS_SELECTOR, value=".jquery-tablesorter th")
+#         for player in players:
+#             self.players.append(player.text)
+#
+#         print(self.players)
 
 
 
@@ -57,17 +57,17 @@ class Players:
         #     self.goals.append(goal.text)
         # time.sleep(3)
 
-    def click_button(self):
-        nxt_button = self.driver.find_element(by=By.XPATH, value='//*[@id="jm"]/main/div[2]/div[3]/section/div[2]/a[6]')
-        # nxt_button.click()
-        self.driver.execute_script("arguments[0].click();", nxt_button)
-        time.sleep(2)
-
-
-start_time = time.perf_counter()
-player_data = Players()
-
-player_data.get_details()
+#     def click_button(self):
+#         nxt_button = self.driver.find_element(by=By.XPATH, value='//*[@id="jm"]/main/div[2]/div[3]/section/div[2]/a[6]')
+#         # nxt_button.click()
+#         self.driver.execute_script("arguments[0].click();", nxt_button)
+#         time.sleep(2)
+#
+#
+# start_time = time.perf_counter()
+# player_data = Players()
+#
+# player_data.get_details()
 
 # print(scrape.spec)
 # print(scrape.price)

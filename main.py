@@ -4,16 +4,13 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from tinydb import TinyDB
+import os
+# from raw_data import RawData
 
 app = Flask(__name__)
-# app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
-app.config['SECRET_KEY'] = "secretkey"
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 Bootstrap(app)
-
-
-
-# app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL').replace('postgres://', 'postgresql://')
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///testing.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', "sqlite:///testing.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -23,11 +20,13 @@ auth = HTTPBasicAuth()
 get_usr_data = small_db.all()
 user_data = get_usr_data[0]
 
+
 @auth.verify_password
 def verify_password(username, password):
     if username in user_data and \
             check_password_hash(user_data.get(username), password):
         return username
+
 
 ##CONFIGURE TABLES
 class Players(db.Model):
@@ -35,8 +34,8 @@ class Players(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(250), nullable=False)
     nationality = db.Column(db.String(250), nullable=False)
-    position = db.Column(db.String(3), nullable=False)
-    career_years = db.Column(db.String(12), nullable=False)
+    position = db.Column(db.String(20), nullable=False)
+    career_years = db.Column(db.String(30), nullable=False)
     appearance = db.Column(db.Integer, nullable=False)
     goals = db.Column(db.Integer, nullable=False)
     wikipedia_article = db.Column(db.String(500), nullable=True)
@@ -59,8 +58,8 @@ class GOTY(db.Model):
     player_name = db.Column(db.String(250), nullable=False)
     win_year = db.Column(db.Integer, nullable=False)
     against = db.Column(db.String(250), nullable=False)
-    scored = db.Column(db.String(5), nullable=False)
-    result = db.Column(db.String(5), nullable=False)
+    scored = db.Column(db.String(20), nullable=False)
+    result = db.Column(db.String(20), nullable=False)
     stadium = db.Column(db.String(250), nullable=False)
     competition = db.Column(db.String(250), nullable=False)
 
@@ -70,8 +69,8 @@ class GOTY(db.Model):
 
 class Captains(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    player_name = db.Column(db.String(5), nullable=False)
-    years = db.Column(db.String(20), nullable=False)
+    player_name = db.Column(db.String(250), nullable=False)
+    years = db.Column(db.String(30), nullable=False)
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
@@ -79,8 +78,8 @@ class Captains(db.Model):
 
 class FWA_Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    player_name = db.Column(db.String(5), nullable=False)
-    year = db.Column(db.String(6), nullable=False)
+    player_name = db.Column(db.String(250), nullable=False)
+    year = db.Column(db.String(30), nullable=False)
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
@@ -98,7 +97,7 @@ class Titles(db.Model):
 class GoldenBoot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(250), nullable=False)
-    year = db.Column(db.String(6), nullable=False)
+    year = db.Column(db.String(30), nullable=False)
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
@@ -107,14 +106,21 @@ class GoldenBoot(db.Model):
 class GoldenGlove(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     player_name = db.Column(db.String(250), nullable=False)
-    year = db.Column(db.String(6), nullable=False)
+    year = db.Column(db.String(30), nullable=False)
 
     def to_dict(self):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
 # db.create_all()
-
+# try:
+#     num_rows_deleted = db.session.query(Players).delete()
+#     db.session.commit()
+# except:
+#     db.session.rollback()
+# data_upload = RawData()
+# data_upload.transfer_to_db(pl=Players, po=POTY, go=GOTY, cp=Captains, fw=FWA_Player,
+#                             gdb=GoldenBoot, gdg=GoldenGlove, db=db, ti=Titles)
 
 @app.route("/")
 def home():

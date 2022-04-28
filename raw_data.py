@@ -47,7 +47,7 @@ class RawData:
                 player_name= player["Player"][i],
                 nationality = player["Nationality"][i],
                 position = player["Position"][i],
-                career_years = player["Career"][i],
+                career_years = player["Career "][i],
                 appearance = player["Appearances"][i],
                 goals = player["Goals"][i],
 
