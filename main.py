@@ -232,14 +232,14 @@ def titles():
 
 @app.route("/search")
 def search():
-    player = request.args.get("player")
-    ploty = request.args.get("poty")
-    goalty = request.args.get("goty")
-    skipper = request.args.get("captain")
-    epl_player_year = request.args.get("epl-poty")
-    title_wins = request.args.get("trophies")
-    gb = request.args.get("golden-boot")
-    gg = request.args.get("golden-gloves")
+    player =(request.args.get("player")).title()
+    ploty = request.args.get("poty").title()
+    goalty = request.args.get("goty").title()
+    skipper = request.args.get("captain").title()
+    epl_player_year = request.args.get("epl-poty").title()
+    title_wins = request.args.get("trophies").title()
+    gb = request.args.get("golden-boot").title()
+    gg = request.args.get("golden-gloves").title()
 
     if player:
         query_result = db.session.query(Players).filter(
@@ -301,9 +301,9 @@ def search():
 @app.route("/add-new-player", methods=["POST"])
 def add_new_player():
     new_player = Players(
-        player_name=request.form.get("player-name"),
-        nationality=request.form.get("nationality"),
-        position=request.form.get("position"),
+        player_name=request.form.get("player-name").title(),
+        nationality=request.form.get("nationality").title(),
+        position=request.form.get("position").upper(),
         career_years=request.form.get("career_years"),
         appearance=request.form.get("appearance"),
         goals=request.form.get("goals"),
@@ -318,7 +318,7 @@ def add_new_player():
 @app.route("/add-new-poty", methods=["POST"])
 def add_new_poty():
     new_poty = POTY(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         win_year=request.form.get("win-year")
     )
     db.session.add(new_poty)
@@ -330,7 +330,7 @@ def add_new_poty():
 @app.route("/add-new-captain", methods=["POST"])
 def add_new_captain():
     new_goty = Captains(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         years=request.form.get("years")
     )
     db.session.add(new_goty)
@@ -342,13 +342,13 @@ def add_new_captain():
 @app.route("/add-new-goty", methods=["POST"])
 def add_new_goty():
     new_goty = GOTY(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         win_year=request.form.get("win-year"),
-        against=request.form.get("opponent"),
+        against=request.form.get("opponent").title(),
         scored=request.form.get("scoreline"),
-        result=request.form.get("game-result"),
-        stadium=request.form.get("stadium"),
-        competition=request.form.get("competition")
+        result=request.form.get("game-result").title(),
+        stadium=request.form.get("stadium").title(),
+        competition=request.form.get("competition").title()
     )
     db.session.add(new_goty)
     db.session.commit()
@@ -359,7 +359,7 @@ def add_new_goty():
 @app.route("/add-new-eplpoty", methods=["POST"])
 def add_new_eplpoty():
     new_eplpoty = FWA_Player(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         year=request.form.get("win-year")
     )
     db.session.add(new_eplpoty)
@@ -371,7 +371,7 @@ def add_new_eplpoty():
 @app.route("/add-new-title", methods=["POST"])
 def add_new_title():
     new_title = Titles(
-        honour=request.form.get("player-name"),
+        honour=request.form.get("honour-name").title(),
         years=request.form.get("win-year"),
     )
     db.session.add(new_title)
@@ -383,7 +383,7 @@ def add_new_title():
 @app.route("/add-new-gbwinner", methods=["POST"])
 def add_new_gb():
     new_gb = GoldenBoot(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         win_year=request.form.get("win-year"),
     )
     db.session.add(new_gb)
@@ -395,7 +395,7 @@ def add_new_gb():
 @app.route("/add-new-ggwinner", methods=["POST"])
 def add_new_gg():
     new_gg = GoldenGlove(
-        player_name=request.form.get("player-name"),
+        player_name=request.form.get("player-name").title(),
         win_year=request.form.get("win-year"),
     )
     db.session.add(new_gg)
