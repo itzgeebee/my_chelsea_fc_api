@@ -269,7 +269,7 @@ def search():
 
     elif title_wins:
         query_result = db.session.query(Titles).filter(
-            Titles.honour.like(f"{titles}%"))
+            Titles.honour.like(f"{title_wins}%"))
 
     elif gb:
         query_result = db.session.query(GoldenBoot).filter(
