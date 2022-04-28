@@ -245,40 +245,39 @@ def search():
         query_result = db.session.query(Players).filter(
             Players.player_name.like(f"{player}%") | Players.nationality.like(f"{player}%") | Players.position.like(
                 f"{player}%")
-            | Players.career_years.like(f"{player}%") | Players.appearance.like(f"{player}%")
-            | Players.goals.like(f"{player}%"))
+            )
 
     elif ploty:
         query_result = db.session.query(POTY).filter(
-            POTY.player_name.like(f"{ploty}%") | POTY.win_year.like(f"{ploty}%"))
+            POTY.player_name.like(f"{ploty}%"))
 
     elif goalty:
         query_result = db.session.query(GOTY).filter(
-            GOTY.player_name.like(f"{goalty}%") | GOTY.win_year.like(f"{goalty}%")
-            | GOTY.against.like(f"{goalty}%") | GOTY.scored.like(f"{goalty}%") |
-            GOTY.result.like(f"{goalty}%") | GOTY.stadium.like(f"{goalty}%") |
+            GOTY.player_name.like(f"{goalty}%")
+            | GOTY.against.like(f"{goalty}%")
+            | GOTY.stadium.like(f"{goalty}%") |
             GOTY.competition.like(f"{goalty}%")
         )
 
     elif skipper:
         query_result = db.session.query(Captains).filter(
-            Captains.player_name.like(f"{skipper}%") | Captains.years.like(f"{skipper}%"))
+            Captains.player_name.like(f"{skipper}%"))
 
     elif epl_player_year:
         query_result = db.session.query(FWA_Player).filter(
-            FWA_Player.player_name.like(f"{epl_player_year}%") | FWA_Player.year.like(f"{epl_player_year}%"))
+            FWA_Player.player_name.like(f"{epl_player_year}%"))
 
     elif title_wins:
         query_result = db.session.query(Titles).filter(
-            Titles.honour.like(f"{titles}%") | Titles.years.like(f"{titles}%"))
+            Titles.honour.like(f"{titles}%"))
 
     elif gb:
         query_result = db.session.query(GoldenBoot).filter(
-            GoldenBoot.player_name.like(f"{gb}%") | GoldenBoot.year.like(f"{gb}%"))
+            GoldenBoot.player_name.like(f"{gb}%"))
 
     elif gg:
         query_result = db.session.query(GoldenGlove).filter(
-            GoldenGlove.player_name.like(f"{gg}%") | GoldenGlove.year.like(f"{gg}%"))
+            GoldenGlove.player_name.like(f"{gg}%"))
 
     else:
         return jsonify({"error": {
