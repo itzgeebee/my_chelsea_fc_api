@@ -384,7 +384,7 @@ def add_new_eplpoty():
 @app.route("/add-new-title", methods=["POST"])
 def add_new_title():
     new_title = Titles(
-        honour=request.form.get("player-name"),
+        honour=request.form.get("title-name"),
         years=request.form.get("win-year"),
     )
     db.session.add(new_title)
