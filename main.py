@@ -5,6 +5,7 @@ from flask_httpauth import HTTPBasicAuth
 from werkzeug.security import generate_password_hash, check_password_hash
 from tinydb import TinyDB
 import os
+
 # from raw_data import RawData
 
 app = Flask(__name__)
@@ -13,7 +14,6 @@ Bootstrap(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', "sqlite:///testing.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-
 
 small_db = TinyDB("small_db.json")
 auth = HTTPBasicAuth()
@@ -246,7 +246,7 @@ def search():
             Players.player_name.like(f"{player}%") | Players.nationality.like(f"{player}%") | Players.position.like(
                 f"{player}%") | Players.career_years.like(f"{player}%")
 
-            )
+        )
 
     elif ploty:
         query_result = db.session.query(POTY).filter(
@@ -266,13 +266,13 @@ def search():
         query_result = db.session.query(Captains).filter(
             Captains.player_name.like(f"{skipper}%")
             | Captains.years.like(f"{skipper}%")
-            )
+        )
 
     elif epl_player_year:
         query_result = db.session.query(FWA_Player).filter(
             FWA_Player.player_name.like(f"{epl_player_year}%")
             | FWA_Player.year.like(f"{epl_player_year}%")
-            )
+        )
 
     elif title_wins:
         query_result = db.session.query(Titles).filter(
@@ -284,13 +284,13 @@ def search():
         query_result = db.session.query(GoldenBoot).filter(
             GoldenBoot.player_name.like(f"{gb}%")
             | GoldenBoot.year.like(f"{gb}%")
-            )
+        )
 
     elif gg:
         query_result = db.session.query(GoldenGlove).filter(
             GoldenGlove.player_name.like(f"{gg}%")
             | GoldenGlove.year.like(f"{gg}%")
-            )
+        )
 
     else:
         return jsonify({"error": {
@@ -456,31 +456,28 @@ def delete_entry():
     gg_to_delete = request.args.get("gg_id")
 
     if player_to_delete:
-        del_= Players.query.get(player_to_delete)
+        del_ = Players.query.get(player_to_delete)
 
     elif poty_to_delete:
-        del_= Players.query.get(poty_to_delete)
+        del_ = POTY.query.get(poty_to_delete)
 
     elif goty_to_delete:
-        del_= Players.query.get(goty_to_delete)
-
-    elif player_to_delete:
-        del_= Players.query.get(player_to_delete)
+        del_ = GOTY.query.get(goty_to_delete)
 
     elif captain_to_delete:
-        del_= Players.query.get(captain_to_delete)
+        del_ = Captains.query.get(captain_to_delete)
 
     elif eplplayer_to_delete:
-        del_= Players.query.get(eplplayer_to_delete)
+        del_ = FWA_Player.query.get(eplplayer_to_delete)
 
     elif title_to_delete:
-        del_= Players.query.get(title_to_delete)
+        del_ = Titles.query.get(title_to_delete)
 
     elif gb_to_delete:
-        del_= Players.query.get(gb_to_delete)
+        del_ = GoldenBoot.query.get(gb_to_delete)
 
     elif gg_to_delete:
-        del_= Players.query.get(gg_to_delete)
+        del_ = GoldenGlove.query.get(gg_to_delete)
 
     else:
         return jsonify({"error": {
@@ -490,7 +487,7 @@ def delete_entry():
     if del_:
         db.session.delete(del_)
         db.session.commit()
-        return jsonify({"success":"deleted successfully"})
+        return jsonify({"success": "deleted successfully"})
     else:
         return jsonify({"error": {
             "Not found": "Sorry, nothing with that id was not found in the database"
