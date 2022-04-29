@@ -397,7 +397,7 @@ def add_new_title():
 def add_new_gb():
     new_gb = GoldenBoot(
         player_name=request.form.get("player-name"),
-        win_year=request.form.get("win-year"),
+        year=request.form.get("win-year"),
     )
     db.session.add(new_gb)
     db.session.commit()
@@ -409,7 +409,7 @@ def add_new_gb():
 def add_new_gg():
     new_gg = GoldenGlove(
         player_name=request.form.get("player-name"),
-        win_year=request.form.get("win-year"),
+        year=request.form.get("win-year"),
     )
     db.session.add(new_gg)
     db.session.commit()
