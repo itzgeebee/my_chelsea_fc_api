@@ -1,3 +1,4 @@
+# optional code which can be modified to scrape data from wikipedia or any website
 # import pandas as pd
 # from selenium import webdriver
 # from selenium.webdriver.chrome.service import Service

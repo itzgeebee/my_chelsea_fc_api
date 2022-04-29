@@ -1,3 +1,4 @@
+# This program reads and processes the data from the csv and can be used to add fresh data to the db
 import pandas as pd
 
 class RawData:

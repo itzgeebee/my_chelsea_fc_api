@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from tinydb import TinyDB
 import os
 
+# to get the fresh data
 # from raw_data import RawData
 
 app = Flask(__name__)
@@ -15,6 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DB_URL', "sqlite:///test
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
+# small database for authentication
 small_db = TinyDB("small_db.json")
 auth = HTTPBasicAuth()
 get_usr_data = small_db.all()
@@ -112,6 +114,7 @@ class GoldenGlove(db.Model):
         return {column.name: getattr(self, column.name) for column in self.__table__.columns}
 
 
+# to edit the db
 # db.create_all()
 # try:
 #     num_rows_deleted = db.session.query(Players).delete()
