@@ -390,7 +390,7 @@ def add_new_title():
     db.session.add(new_title)
     db.session.commit()
 
-    return jsonify({"response:": {"success": "new player added"}})
+    return jsonify({"response:": {"success": "new title added"}})
 
 
 @app.route("/add-new-gbwinner", methods=["POST"])
