@@ -441,6 +441,7 @@ def update_player(player_id):
         return jsonify({"error": {
             "Not found": "Sorry, a player with that id was not found in the database"
         }}), 404
+    db.session.commit()
     return jsonify({"success": "Successfully updated the player profile"})
 
 
